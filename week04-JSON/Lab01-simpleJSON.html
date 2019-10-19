@@ -1,0 +1,31 @@
+<!-- Write the code that will convert the following JSON into a javascript object, -->
+<html>
+    <head>
+        <title>lab01</title>
+    </head>
+    <body>
+        <button onclick="writeText()">....Go....</button>
+        <div id="writeHere"></div>
+        <!-- <script>
+            var jsonString = '{"isbn": "12345667-9", "Author": "Andrew Beatty","Title": "The ping-pong diplomacy"}';
+            var obj = JSON.parse(jsonString);
+            console.log(obj.Author);
+
+            function writeText(){
+                document.getElementById("writeHere").innerText = (obj.Author);
+                document.getElementById("writeHere").innerText = (JSON.stringify(obj.Title));
+            }
+        </script>
+     -->
+    </body>
+    <script>
+            var jsonString = '{"isbn": "12345667-9", "Author": "Andrew Beatty","Title": "The ping-pong diplomacy"}';
+            var obj = JSON.parse(jsonString);
+            console.log(obj.Author);
+
+            function writeText(){
+                //document.getElementById("writeHere").innerText = (obj.Author);
+                document.getElementById("writeHere").innerText = (JSON.stringify(obj.Title));
+            }
+        </script>
+</html>
