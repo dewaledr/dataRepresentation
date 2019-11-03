@@ -13,7 +13,7 @@
     <script>
         function updateCar(){
             //181 G 1234
-            var car = {"181 G 1234":"test","make":"Ford","model":"Modeo","price":"00"}
+            var car = {"reg":"test","make":"Ford","model":"Modeo","price":880}
             console.log(JSON.stringify(car));
             $.ajax({
                 "url": "http://127.0.0.1:5000/cars/"+encodeURI(car.reg),
