@@ -1,11 +1,13 @@
 import requests
 import json
 
-apiKey = 'f59b1cdb743ce0ab9b21a94ac246b02f06ee2d85'
-url = 'https://api.github.com/repos/datarepresentationstudent/aPrivateOne'
-filename = 'repo.json'
+# apiKey = 'f59b1cdb743ce0ab9b21a94ac246b02f06ee2d85'
+### faTOKEN = da42a72bfa816f16ea6df0a84e5dcb9646073f48
+url = 'https://github.com/dewaledr/dataRepresentation'
+filename = 'repoFA.json'
 
-response = requests.get(url, auth=('token', apiKey))
+# response = requests.get(url, auth=('token', apiKey))
+response = requests.get(url, params="")
 repoJSON = response.json()
 # print(response.status_code)
 print("1...")

@@ -14,9 +14,9 @@ cars = [
     },
     {
         "reg":"11 MO 1234",
-        "make":"Nissan",
-        "model":"Almera",
-        "price":8000
+        "make":"Toyota",
+        "model":"Ventura",
+        "price":28000
     },
     {
         "reg":"test",
@@ -27,7 +27,7 @@ cars = [
 ]
 @app.route('/')
 def index():
-    return "Hello Flask Server is running on port 5000"
+    return "Hello Flask restServer is running on port 5000... (c)FA 2019"
 
 @app.route('/cars', methods=['GET'])
 def get_cars():

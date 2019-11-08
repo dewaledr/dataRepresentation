@@ -14,20 +14,32 @@ cars = [
     },
     {
         "reg":"11 MO 1234",
-        "make":"Nissan",
-        "model":"Almera",
-        "price":8000
+        "make":"Toyota",
+        "model":"Ventura",
+        "price":28000
     },
     {
         "reg":"test",
         "make":"Nissan",
         "model":"Almera",
         "price":8000
+    },
+    {
+        "reg":"192 L 76702",
+        "make":"Landrover",
+        "model":"Discovery",
+        "price":98000
+    },
+    {
+        "reg":"131 L 1032",
+        "make":"Hyundai",
+        "model":"i-10",
+        "price":6600
     }
 ]
 @app.route('/')
 def index():
-    return "Hello Flask Server is running on port 5000"
+    return "Hello Flask Server (week06-01...) is running on port 5000"
 
 @app.route('/cars', methods=['GET'])
 def get_cars():
@@ -56,6 +68,8 @@ def create_car():
     }
     cars.append(car)
     return jsonify( {'car':car }),201
+
+
 # sample test
 # curl -i -H "Content-Type:application/json" -X POST -d '{"reg":"12 D 1234","make":"Fiat","model":"Punto","price":3000}' http://localhost:5000/cars
 # for windows use this one
