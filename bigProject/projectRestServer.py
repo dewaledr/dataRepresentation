@@ -9,38 +9,38 @@ app = Flask(__name__,
 # Create sample Customer list on the REST Server
 customers = [
     {
-        "id":100,
+        "id":1000,
         "firstname":"Francis",
         "lastname":"Adepoju",
         "gender":"M",
-        "age":78,
+        "age":"67-99",
         "lastvisit":"11-11-2019",
         "product":"iPhone",
-        "totalspent":2000
+        "amountspent":2000
     },
     {
-        "id":101,
+        "id":1001,
         "firstname":"Ann",
         "lastname":"Schmitz",
         "gender":"F",
-        "age":23,
+        "age":"19-25",
         "lastvisit":"15-02-2018",
         "product":"Blender",
-        "totalspent":250
+        "amountspent":250
     },
     {
-        "id":102,
+        "id":1002,
         "firstname":"Philip",
         "lastname":"McGinley",
         "gender":"M",
-        "age":41,
+        "age":"36-45",
         "lastvisit":"29-08-2019",
         "product":"Trainers",
-        "totalspent":199
+        "amountspent":199
     }
 ]
 # Server Generates Customer ID automatically
-nextID = 103
+nextID = 1003
 
 # Default method from server 
 # curl -i http://localhost:5000
@@ -84,7 +84,7 @@ def create_customer():
         "age": request.json['age'],
         "lastvisit":request.json['lastvisit'],
         "product":request.json['product'],
-        "totalspent":request.json['totalspent'],
+        "amountspent":request.json['amountspent'],
     }
     nextID += 1
     customers.append(customer)
@@ -109,7 +109,7 @@ def update_customer(id):
     if not request.json:
         abort(400)
     
-    if 'totalspent' in request.json and type(request.json['totalspent']) is not int:
+    if 'amountspent' in request.json and type(request.json['amountspent']) is not int:
         abort(400)
     if 'lastname' in request.json and type(request.json['lastname']) is not str:
         abort(400)
@@ -126,7 +126,7 @@ def update_customer(id):
     foundCustomer[0]['age']         = request.json.get('age',       foundCustomer[0]['age'])
     foundCustomer[0]['lastvisit']   = request.json.get('lastvisit', foundCustomer[0]['lastvisit'])
     foundCustomer[0]['product']     = request.json.get('product',   foundCustomer[0]['product'])
-    foundCustomer[0]['totalspent']  = request.json.get('totalspent',foundCustomer[0]['totalspent'])
+    foundCustomer[0]['amountspent']  = request.json.get('amountspent',foundCustomer[0]['amountspent'])
 
     return jsonify( {'customer':foundCustomer[0]})
 
