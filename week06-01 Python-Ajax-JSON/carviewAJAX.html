@@ -5,8 +5,9 @@
        
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
-    <body>
-        <h1>Cars</h1>
+    <body onload="getAllAjax()">
+        <h1>Cars</h1><hr/>
+        <h2><div id="writeHere"></div></h2> <!--TEST getAllAjax-->
         <div> <button id="showCreateButton" onclick="showCreate()">Create</button></div>
         <div>
             <table class="table" id="carTable">
@@ -159,6 +160,7 @@
         return car
     }
     function getAllAjax(){
+        // document.getElementById("writeHere").innerText = 'Nothing to decalre... ah ha...';
         $.ajax({
             "url": "http://127.0.0.1:5000/cars",
             "method":"GET",
@@ -233,8 +235,6 @@
             }
         });
     }
-    getAllAjax();
-  
-    
+    //getAllAjax();  
     </script>
 </html>
