@@ -14,7 +14,7 @@ customers = [
         "lastname":"Adepoju",
         "gender":"M",
         "age":"67-99",
-        "lastvisit":"11-11-2019",
+        "lastvisit":"05/11/2019",
         "product":"iPhone",
         "amountspent":2000
     },
@@ -24,7 +24,7 @@ customers = [
         "lastname":"Schmitz",
         "gender":"F",
         "age":"19-25",
-        "lastvisit":"15-02-2018",
+        "lastvisit":"11/02/2018",
         "product":"Blender",
         "amountspent":250
     },
@@ -34,7 +34,7 @@ customers = [
         "lastname":"McGinley",
         "gender":"M",
         "age":"36-45",
-        "lastvisit":"29-08-2019",
+        "lastvisit":"28/02/2019",
         "product":"Trainers",
         "amountspent":199
     }
