@@ -61,20 +61,11 @@
             max-width: 100%;
          /*   max-height: 500px;*/
          }
-/*
-         .jumbotron {
-             position:fixed;
-             top:0;
-             z-index:-1;
-             width:100%;
-             text-align: center;
-             color: #ebebeb;
-          } */
-         /*    background: url("/img/bg.jpg"); */
 
          .container {
              width: 100%;
              margin-top:0px;
+             /* background:rgb(248, 248, 248); */
              background:white;
          }
 
@@ -221,7 +212,8 @@
                              <a class="nav-link disabled"><img src="logo.jpg" width="80" ></a>
                          </li>
                          <li class="nav-item">
-                            <h4 class="siteName" text-align="center">Francis Adepoju Inc.</h4>
+                            <h5 class="siteName"> FrancisAdepoju&trade; Inc.</h5>
+                            <!-- <h4 class="siteName" text-align="center">FrancisAdepoju&trade; Inc.</h4> -->
                         </li>
                      </div>
                     </ul>
@@ -231,24 +223,21 @@
                     </form>
                </div>
          </nav>
-            <br/>
-            <!-- <h4 class="siteName" text-align="center">Francis Adepoju Inc.</h4> -->
-            <!-- <h6 class="siteName" text-align="center">Customer Administration Project</h6> -->
-            <!-- </div> -->
-        <!-- End of Jumbotron --> 
-        <!-- <h1>Customers</h1><hr/> -->
+        <br/>
+        <!--  -->
         <div class="container">
             <div class="row">
                 <div class="col-10">
-                    <h3>Customer Administration</h3><hr/>
+                    <h3>Customer Administration Page</h3><hr/>
                 </div>
                 <div class="col-2">
                     <div style="display:inline"> <button id="showCreateButton" onclick="showCreate()"
                         type="button" class="btn btn-outline-success btn-md">Create a Customer</button></div>
-                </div>
+                </div> 
             </div>
-        
+
         <h4><div id="miscellFeedback" style="width:100%; display:inline-block; border: 4px solid red"></div></h4> </div>
+
         <div class="container">
             <table class="table table-striped" id="customerTable">
                 <tr class="table-primary">
@@ -268,31 +257,7 @@
         </div>
         <hr/>
         
-        <!-- <div id='createCustomerForm' class="form-inline my-2 my-lg-0" style="display: none">
-                <h2><span id="createLabel">Create a New Customer</span></h2>
-                 CustomerID <input type="text" name="id"/> <br/> -->
-                <!-- First Name <input type="text" name="firstname"/> <br/>
-                Last  Name <input type="text" name="lastname"/>
-                ...Gender <select name="gender"> 
-                    <option value="F" selected="selected">Female</option>
-                    <option value="M">Male</option>
-                </select>
-                ...Age Group <select name="age"> 
-                    <option value="13-18">13-18</option>
-                    <option value="19-25">19-25</option>
-                    <option value="26-35">26-35</option>
-                    <option value="36-45">36-45</option>
-                    <option value="46-66">46-66</option>
-                    <option value="67-99" selected="selected">67-99</option>
-                </select><br/>  
-                Date of Last Visit <input type="date" name="lastvisit"/> <br/>
-                Product Bought <input type="text" name="product"/> <br/>
-                Amount Spent <input type="text" name="amountspent"/> <br/>
-                <span><button id="doCreateButton" onclick="doCreate()"
-                    type="button" class="btn btn-outline-success btn-md">Create Customer</button></span>
-                 <span><button id="doUpdateButton" onclick="doUpdate()">Update Customer</button></span> 
-        </div>
-    </form>  -->
+    <!-- </form>  -->
     <!-- END FORM -->
             <!-- <form class="form-inline my-2 my-lg-0"> -->
             <div class="container" id='createCustomerForm' style="display: none">
@@ -305,7 +270,7 @@
                     </div>
                     <div class="col-2">
                         <div style="display: inline">
-                            <input type="text" name="firstname"/><br/><br/>
+                            <input type="text" name="firstname" /><br/><br/>
                         </div>
                     </div>
                 </div>
@@ -317,7 +282,7 @@
                     </div>
                     <div class="col-2">
                         <div style="display: inline">
-                            <input type="text" name="lastname"/><br/><br/>
+                            <input type="text" name="lastname" /><br/><br/>
                         </div>
                     </div>
                 </div>
@@ -373,7 +338,7 @@
                     </div>
                     <div class="col-2">
                         <div style="display: inline">
-                            <input type="text" name="product"/><br/><br/>
+                            <input type="text" name="product" placeholder="Item Purchased"/><br/><br/>
                         </div>
                     </div>
                     <div class="col-2 r-align">
@@ -383,7 +348,7 @@
                     </div>
                     <div class="col-2">
                         <div style="display: inline">
-                            <input type="text" name="amountspent"/><br/><br/>
+                            <input type="text" name="amountspent" placeholder="Amount in €"/><br/><br/>
                         </div>
                     </div>
                 </div>           
@@ -393,31 +358,13 @@
                     type="button" class="btn btn-outline-success btn-md">Create Customer</button></span>
             </div>
             <!-- </form> -->
-        <!-- FORM -->
-<!-- <form class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 
-
-    <div class="container">
-            <div class="row">
-                <div class="col-10">
-                    <h3>Customer Administration</h3><hr/>
-                </div>
-                <div class="col-2">
-                    <div style="display:inline"> <button id="showCreateButton" onclick="showCreate()"
-                        type="button" class="btn btn-outline-success btn-md">Create a Customer</button></div>
-                </div>
-            </div>
-</form> -->
-<!-- END FORM --> 
         <!-- <form class="form-inline my-2 my-lg-0"> -->
         <div class="container" id='createUpdateForm' style="display: none">
             <h2><span id="updateLabel">Update this Customer</span></h2>
             <div class="row">
                 <div class="col-2 r-align">
                     <div style="display: inline">
-                        <!-- CustomerID <input type="text" name="id"/> <br/><br/> -->
                         CustomerID:
                     </div>
                 </div>
@@ -525,10 +472,9 @@
         <!-- </form> -->
     <div>
         <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand" href="#">&copy 2018 GMIT Inc.</a>
+            <a class="navbar-brand" href="#">&copy 2017 - 2019 GMIT Data Analytics</a>
             <h5><div id="writeHere" class="f-color" ></div></h5> 
     </div>
-            <!-- <h4><div id="writeHere" style="width:100%; display:inline-block; border: 4px solid red"></div></h4> </div> -->
          </nav>
     </div>
     </body>
@@ -557,10 +503,9 @@
         document.getElementById('updateLabel').style.display="inline"
         document.getElementById('doCreateButton').style.display="none"
         document.getElementById('doUpdateButton').style.display="block"
-        // var rowElement = buttonElement.parentNode.parentNode
-        var rowElement = buttonElement.parentNode.parentNode
         // these is a way of finding the closest <tr> which would safer, closest()
-        
+        var rowElement = buttonElement.parentNode.parentNode
+              
         var customer = getCustomerFromRow(rowElement)
         populateFormWithCustomer(customer)
     }
@@ -735,7 +680,7 @@
     }
 
     function updateCustomerAjax(customer){
-        //var car = {"reg":"12 D 1234","price":8000}
+        //var customer = {"id":nextID,"firstname":"firstname"....}
         console.log(JSON.stringify(customer));
         $.ajax({
             "url": "http://127.0.0.1:5000/customers/"+encodeURI(customer.id),

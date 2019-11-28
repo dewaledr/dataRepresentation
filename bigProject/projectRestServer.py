@@ -46,7 +46,7 @@ nextID = 1003
 # curl -i http://localhost:5000
 @app.route('/')
 def index():
-    return "Hello, Flask Server is running on port 5000 for the ...bigPROJECT...\n"
+    return "Hello, Flask Server is running on port 5000 on local machine and also on the cloud at pythonAnywhere for the ...bigPROJECT...\n"
 
 # Show all customers
 # curl -i http://localhost:5000/customers
