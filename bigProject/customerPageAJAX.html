@@ -646,7 +646,7 @@
     function getAllCustomerAjax(){
         // document.getElementById("writeHere").innerText = 'Nothing to decalre... ah ha...';
         $.ajax({
-            "url": "http://35.173.69.207:5000/customers",
+            "url": "http://dewaledr.pythonanywhere.com/customers",
             // "url": "http://127.0.0.1:5000/customers",
             "method":"GET",
             "data":"",
@@ -667,7 +667,7 @@
         //var customer = {"firstname":"Fiat","lastname":"Punto","gender":"M","age":"baby","lastvisit","20-10-2020","totalspent":7075}
         console.log(JSON.stringify(customer));
         $.ajax({
-            "url": "http://35.173.69.207:5000/customers",
+            "url": "http://dewaledr.pythonanywhere.com/customers",
             // "url": "http://127.0.0.1:5000/customers",
             "method":"POST",
             "data":JSON.stringify(customer),
@@ -687,7 +687,7 @@
         //var customer = {"id":nextID,"firstname":"firstname"....}
         console.log(JSON.stringify(customer));
         $.ajax({
-            "url": "http://35.173.69.207:5000/customers/"+encodeURI(customer.id),
+            "url": "http://dewaledr.pythonanywhere.com/customers/"+encodeURI(customer.id),
             // "url": "http://127.0.0.1:5000/customers/"+encodeURI(customer.id),
             "method":"PUT",
             "data":JSON.stringify(customer),
@@ -707,7 +707,7 @@
         //var car = {"reg":"12 D 1234"}
         console.log(JSON.stringify(id));
         $.ajax({
-            "url": "http://35.173.69.207:5000/customers/"+encodeURI(id),
+            "url": "http://dewaledr.pythonanywhere.com/customers"+encodeURI(id),
             // "url": "http://127.0.0.1:5000/customers/"+encodeURI(id),
             "method":"DELETE",
             "data":"",
