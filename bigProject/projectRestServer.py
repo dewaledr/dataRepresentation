@@ -3,7 +3,7 @@
 from flask import Flask, jsonify,  request, abort, make_response
 
 app = Flask(__name__, 
-            static_url_path='35.173.69.207', static_folder='./')
+            static_url_path='', static_folder='./')
             #static_folder='../')
 
 # Create sample Customer list on the REST Server
