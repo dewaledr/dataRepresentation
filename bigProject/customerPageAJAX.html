@@ -597,7 +597,8 @@
         customer.age        = rowElement.cells[4].firstChild.textContent
         customer.lastvisit  = rowElement.cells[5].firstChild.textContent 
         customer.product    = rowElement.cells[6].firstChild.textContent       
-        customer.amountspent = parseInt(rowElement.cells[7].firstChild.textContent,10)
+        customer.amountspent = parseFloat(rowElement.cells[7].firstChild.textContent,10)
+        // customer.amountspent = parseInt(rowElement.cells[7].firstChild.textContent,10)
         return customer
     }
 
@@ -636,7 +637,8 @@
         customer.age        = form.querySelector('select[name="age"]').value
         customer.lastvisit  = form.querySelector('input[name="lastvisit"]').value
         customer.product    = form.querySelector('input[name="product"]').value
-        customer.amountspent = parseInt(form.querySelector('input[name="amountspent"]').value,10)
+        customer.amountspent = parseFloat(form.querySelector('input[name="amountspent"]').value,10)
+        // customer.amountspent = parseInt(form.querySelector('input[name="amountspent"]').value,10)
         console.log(JSON.stringify(customer))
         return customer
     }
