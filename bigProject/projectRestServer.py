@@ -9,48 +9,48 @@ app = Flask(__name__,
 # Create sample Customer list on the REST Server
 customers = [
     {
-        "id":1000,
+        "id":1001,
         "firstname":"Francis",
         "lastname":"Adepoju",
         "gender":"M",
         "age":"67-99",
-        "lastvisit":"05/11/2019",
+        "lastvisit":"2019-11-05",
         "product":"iPhone",
-        "amountspent":2000.00
+        "amountspent":2200.99
     },
     {
-        "id":1001,
+        "id":1002,
         "firstname":"Ann",
         "lastname":"Schmitz",
         "gender":"F",
         "age":"19-25",
-        "lastvisit":"11/02/2018",
+        "lastvisit":"2018-02-11",
         "product":"Blender",
-        "amountspent":250.50
+        "amountspent":250.55
     },
     {
-        "id":1002,
+        "id":1003,
         "firstname":"Philip",
         "lastname":"McGinley",
         "gender":"M",
         "age":"36-45",
-        "lastvisit":"28/02/2019",
+        "lastvisit":"2019-07-28",
         "product":"Trainers",
-        "amountspent":199.99
+        "amountspent":199.59
     },
     {
-        "id":1003,
+        "id":1004,
         "firstname":"Andrew",
         "lastname":"Beatty",
         "gender":"M",
         "age":"19-25",
-        "lastvisit":"08/07/2019",
+        "lastvisit":"2019-08-18",
         "product":"MacBook Pro 2019",
-        "amountspent":3599.99
+        "amountspent":3599.29
     }
 ]
 # Server Generates Customer ID automatically
-nextID = 1004
+nextID = 1005
 
 # Default method from server 
 # curl -i http://localhost:5000
@@ -119,7 +119,7 @@ def update_customer(id):
     if not request.json:
         abort(400)
     
-    if 'amountspent' in request.json and type(request.json['amountspent']) is not int:
+    if 'amountspent' in request.json and type(request.json['amountspent']) is not float:
         abort(400)
     if 'lastname' in request.json and type(request.json['lastname']) is not str:
         abort(400)
@@ -127,7 +127,7 @@ def update_customer(id):
         abort(400)
     if 'product' in request.json and type(request.json['product']) is not str:
         abort(400)
-    if 'lastvisit' in request.json and type(request.json['lastvisit']) is not str:
+    if 'lastvisit' in request.json and type(request.json['lastvisit'] ) is not str:
         abort(400)
 
     foundCustomer[0]['firstname']   = request.json.get('firstname', foundCustomer[0]['firstname'])

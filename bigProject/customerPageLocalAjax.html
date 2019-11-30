@@ -11,8 +11,8 @@
 6) The Web Page is responsive. That means it would display on standard devices
    from large screen monitors, to tablets and phones.
 7) This Web Page is deployed to run both on local Flask server as well as pythonanywhere.com flask server
-8)
-9)
+8) on Local machine, the url to run this page is: "http://127.0.0.1:5000/customerPageLocalAjax.html"
+9) on PythonAnywhere, the url to run this page is: "http://dewaledr.pythonanywhere.com/customerPagePyAnywhere.html"
 10)
 -->
 
@@ -294,7 +294,8 @@
                     <div class="col-2">
                         <div style="display: inline">
                             <select name="gender"> 
-                                <option value="F" selected="selected">Female</option>
+                                <option value="F">Female</option>
+                                <!-- <option value="F" selected="selected">Female</option> -->
                                 <option value="M">Male</option>
                             </select><br/><br/>
                         </div>
@@ -312,7 +313,8 @@
                                 <option value="13-18">13-18</option>
                                 <option value="19-25">19-25</option>
                                 <option value="26-35">26-35</option>
-                                <option value="36-45" selected="selected">36-45</option>
+                                <!-- <option value="36-45" selected="selected">36-45</option> -->
+                                <option value="36-45">36-45</option>
                                 <option value="46-66">46-66</option>
                                 <option value="67-99">67-99</option>
                             </select><br/> <br/>
@@ -645,8 +647,8 @@
     function getAllCustomerAjax(){
         // document.getElementById("writeHere").innerText = 'Nothing to decalre... ah ha...';
         $.ajax({
-            "url": "http://dewaledr.pythonanywhere.com/customers",
-            // "url": "http://127.0.0.1:5000/customers",
+            // "url": "http://dewaledr.pythonanywhere.com/customers",
+            "url": "http://127.0.0.1:5000/customers",
             "method":"GET",
             "data":"",
             "dataType": "JSON",
@@ -666,15 +668,15 @@
         //var customer = {"firstname":"Fiat","lastname":"Punto","gender":"M","age":"baby","lastvisit","20-10-2020","totalspent":7075}
         console.log(JSON.stringify(customer));
         $.ajax({
-            "url": "http://dewaledr.pythonanywhere.com/customers",
-            // "url": "http://127.0.0.1:5000/customers",
+            // "url": "http://dewaledr.pythonanywhere.com/customers",
+            "url": "http://127.0.0.1:5000/customers",
             "method":"POST",
             "data":JSON.stringify(customer),
             "dataType": "JSON",
             contentType: "application/json; charset=utf-8",
             "success":function(result){
                 // console.log(result);
-                document.getElementById("writeHere").innerText = 'Customer ' + result.customer.id + " - (" + result.customer.lastname + " " + result.customer.firstname +') has been created...';
+                document.getElementById("writeHere").innerText = 'Customer ' + result.customer.id + " - (" + result.customer.firstname + " " + result.customer.lastname +') has been created...';
             },
             "error":function(xhr,status,error){
                 console.log("error: "+status+" msg:"+error);
@@ -686,15 +688,14 @@
         //var customer = {"id":nextID,"firstname":"firstname"....}
         console.log(JSON.stringify(customer));
         $.ajax({
-            // "url": "http://dewaledr.pythonanywhere.com/customers/"+customer.id,
-            "url": "http://dewaledr.pythonanywhere.com/customers/"+encodeURI(customer.id),
-            // "url": "http://127.0.0.1:5000/customers/"+encodeURI(customer.id),
+            // "url": "http://dewaledr.pythonanywhere.com/customers/"+encodeURI(customer.id),
+            "url": "http://127.0.0.1:5000/customers/"+encodeURI(customer.id),
             "method":"PUT",
             "data":JSON.stringify(customer),
             "dataType": "JSON",
             contentType: "application/json; charset=utf-8",
             "success":function(result){
-            //    console.log(result);
+               console.log(result);
                document.getElementById("writeHere").innerText = 'Customer ' + result.customer.id + ' detail has been updated successfully...' ;     
             },
             "error":function(xhr,status,error){
@@ -708,8 +709,8 @@
         console.log(JSON.stringify(id));
         $.ajax({
             // "url": "http://dewaledr.pythonanywhere.com/customers/"+id,
-            "url": "http://dewaledr.pythonanywhere.com/customers/"+encodeURI(id),
-            // "url": "http://127.0.0.1:5000/customers/"+encodeURI(id),
+            // "url": "http://dewaledr.pythonanywhere.com/customers/"+encodeURI(id),
+            "url": "http://127.0.0.1:5000/customers/"+encodeURI(id),
             "method":"DELETE",
             "data":"",
             "dataType": "HTML",
