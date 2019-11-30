@@ -16,7 +16,7 @@ customers = [
         "age":"67-99",
         "lastvisit":"05/11/2019",
         "product":"iPhone",
-        "amountspent":2000
+        "amountspent":2000.00
     },
     {
         "id":1001,
@@ -26,7 +26,7 @@ customers = [
         "age":"19-25",
         "lastvisit":"11/02/2018",
         "product":"Blender",
-        "amountspent":250
+        "amountspent":250.50
     },
     {
         "id":1002,
@@ -36,11 +36,21 @@ customers = [
         "age":"36-45",
         "lastvisit":"28/02/2019",
         "product":"Trainers",
-        "amountspent":199
+        "amountspent":199.99
+    }
+    {
+        "id":1003,
+        "firstname":"Andrew",
+        "lastname":"Beatty",
+        "gender":"M",
+        "age":"19-25",
+        "lastvisit":"08/07/2019",
+        "product":"MacBook Pro 2019",
+        "amountspent":3599.99
     }
 ]
 # Server Generates Customer ID automatically
-nextID = 1003
+nextID = 1004
 
 # Default method from server 
 # curl -i http://localhost:5000
