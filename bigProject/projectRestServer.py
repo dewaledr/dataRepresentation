@@ -37,7 +37,7 @@ customers = [
         "lastvisit":"28/02/2019",
         "product":"Trainers",
         "amountspent":199.99
-    }
+    },
     {
         "id":1003,
         "firstname":"Andrew",
