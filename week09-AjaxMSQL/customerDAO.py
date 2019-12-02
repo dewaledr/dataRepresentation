@@ -54,7 +54,7 @@ class CustomerDAO:
         # Day=%s, Hour=%s, Minute=%s WHERE Server='%s' " 
         # % (Year, Month, Day, Hour, Minute, ServerID))
         # (firstname, lastname, gender, age, lastvisit, product, amountspent)
-        sql =   """ UPDATE customers      
+        sql =   """ UPDATE customers     
                     SET firstname=%s, lastname=%s, gender=%s, age=%s, 
                         lastvisit=%s, product=%s, amountspent=%s 
                     WHERE id=%s"""

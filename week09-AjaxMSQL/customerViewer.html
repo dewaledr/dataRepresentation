@@ -20,11 +20,11 @@
 <html lang="en">
     <head>
         <!-- <title> view Customers</title> -->
-        <!-- Needed for AJAX -->
+        <!-- Needed for AJAX one of these should work...-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        
         <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+        
         <!-- Some CSS for this project -->
         <!-- Required meta tags -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -43,7 +43,6 @@
     <style>
     * {box-sizing: border-box}
 
-      /* body {font-family: Verdana, sans-serif; margin:0} */
     body {
         /* font-family: Verdana, sans-serif; margin: 0; */
       	/* background-image: url("images/background.jpg"); */
@@ -57,19 +56,13 @@
         vertical-align: middle;
     }
     
-    /* FA... Get Image to fill up the jumbotron view minding the aspect ratio...*/
-    .jumbotron {
-        /* background-size: align-items-center;
-        background-size: center center; */
-        max-width: 100%;
-        /*   max-height: 500px;*/
-    }
-    
     .container {
+        background-size: align-items-center;
+        background-size: center center;
         width: 100%;
         margin-top:0px;
-        /* background:rgb(248, 248, 248); */
-        background:white;
+        background:rgb(248, 248, 248);
+        /* background:white; */
     }
 
     h3 {
@@ -199,7 +192,7 @@
 <!-- Static Nav Bar with Logo -->
     <!-- <body onload="getAllCustomerAjax()"> -->
     <body>
-        <div class="container">
+        <div class="container my-sm-0 my-lg-0">
             <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
                     <a class="navbar-brand" href="#"></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -227,7 +220,7 @@
          </nav>
         <br/>
         <!--  -->
-        <div class="container">
+        <div class="container my-sm-0 my-lg-0">
             <div class="row">
                 <div class="col-10">
                     <h3>Customer Administration Page</h3><hr/>
@@ -240,7 +233,7 @@
 
         <h4><div id="miscellFeedback" style="width:100%; display:inline-block; border: 4px solid red"></div></h4> </div>
 
-        <div class="container">
+        <div class="container my-sm-0 my-lg-0">
             <table class="table table-striped" id="customerTable">
                 <tr class="table-primary">
                         <th>CustomerID</th>
@@ -262,7 +255,7 @@
     <!-- </form>  -->
     <!-- END FORM -->
             <!-- <form class="form-inline my-2 my-lg-0"> -->
-            <div class="container" id='createCustomerForm' style="display: none">
+            <div class="container my-sm-0 my-lg-0" id='createCustomerForm' style="display: none">
                 <h2><span id="createLabel">Create a New Customer</span></h2>
                 <div class="row">
                     <div class="col-2 r-align">
@@ -342,17 +335,17 @@
                     </div>
                     <div class="col-2">
                         <div style="display: inline">
-                            <input type="text" name="product" placeholder="Item Purchased"/><br/><br/>
+                            <input type="text" name="product" placeholder="Product name"/><br/><br/>
                         </div>
                     </div>
                     <div class="col-2 r-align">
                         <div style="display: inline">
-                            Amount Spent:
+                            Amount Spent €:
                         </div>
                     </div>
                     <div class="col-2">
                         <div style="display: inline">
-                            <input type="text" name="amountspent" placeholder="Amount in €"/><br/><br/>
+                            <input type="text" name="amountspent" placeholder="e.g  999.99 "/><br/><br/>
                         </div>
                     </div>
                 </div>           
@@ -364,7 +357,7 @@
             <!-- </form> -->
 
         <!-- <form class="form-inline my-2 my-lg-0"> -->
-        <div class="container" id='createUpdateForm' style="display: none">
+        <div class="container my-sm-0 my-lg-0" id='createUpdateForm' style="display: none">
             <h2><span id="updateLabel">Update this Customer</span></h2>
             <div class="row">
                 <div class="col-2 r-align">
@@ -374,7 +367,7 @@
                 </div>
                 <div class="col-2">
                     <div style="display: inline">
-                        <input type="text" name="id" aria-label="ID"/> <br/><br/>
+                        <input type="text" name="id" readonly/> <br/><br/>
                     </div>
                 </div>
             </div>

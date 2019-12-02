@@ -107,9 +107,9 @@ def update_customer(id):
         foundCustomer['product'] = reqJson['product']
     if 'amountspent' in reqJson:
         foundCustomer['amountspent'] = reqJson['amountspent']
-    values = (foundCustomer['id'],foundCustomer['firstname'],foundCustomer['lastname'],
+    values = (foundCustomer['firstname'],foundCustomer['lastname'],
               foundCustomer['gender'],foundCustomer['age'],foundCustomer['lastvisit'],
-              foundCustomer['product'],foundCustomer['amountspent'])
+              foundCustomer['product'],foundCustomer['amountspent'],foundCustomer['id'])
     customerDAO.update(values)
     return jsonify(foundCustomer)
 
