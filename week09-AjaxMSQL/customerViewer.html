@@ -476,6 +476,7 @@
     </div>
     </body>
     <script>
+    host=window.location.origin     // will resolve to machine host 127.0.0.1 or dewaledr.pythonanywhere.com 
     function showCreate(){
         document.getElementById('showCreateButton').style.display="none"
         document.getElementById('customerTable').style.display="none"
@@ -645,7 +646,8 @@
         // document.getElementById("writeHere").innerText = 'Nothing to decalre... ah ha...';
         $.ajax({
             // "url": "http://dewaledr.pythonanywhere.com/customers",
-            "url": "http://127.0.0.1:5000/customers",
+            // "url": "http://127.0.0.1:5000/customers",
+            "url": host+"/customers",
             "method":"GET",
             "data":"",
             "dataType": "JSON",
@@ -666,7 +668,8 @@
         console.log(JSON.stringify(customer));
         $.ajax({
             // "url": "http://dewaledr.pythonanywhere.com/customers",
-            "url": "http://127.0.0.1:5000/customers",
+            // "url": "http://127.0.0.1:5000/customers",
+            "url": host+"/customers",
             "method":"POST",
             "data":JSON.stringify(customer),
             "dataType": "JSON",
@@ -691,7 +694,8 @@
         console.log(JSON.stringify(customer));
         $.ajax({
             // "url": "http://dewaledr.pythonanywhere.com/customers/"+encodeURI(customer.id),
-            "url": "http://127.0.0.1:5000/customers/"+encodeURI(customer.id),
+            // "url": "http://127.0.0.1:5000/customers/"+encodeURI(customer.id),
+            "url": host+"/customers/"+encodeURI(customer.id),
             "method":"PUT",
             "data":JSON.stringify(customer),
             "dataType": "JSON",
@@ -714,7 +718,8 @@
         $.ajax({
             // "url": "http://dewaledr.pythonanywhere.com/customers/"+id,
             // "url": "http://dewaledr.pythonanywhere.com/customers/"+encodeURI(id),
-            "url": "http://127.0.0.1:5000/customers/"+encodeURI(id),
+            // "url": "http://127.0.0.1:5000/customers/"+encodeURI(id),
+            "url": host+"/customers/"+encodeURI(id),
             "method":"DELETE",
             "data":"",
             "dataType": "JSON",

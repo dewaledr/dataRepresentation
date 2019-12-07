@@ -4,17 +4,18 @@ Written by:     Francis ADEPOJU
 Date Completed: December 15, 2019
 """
 import mysql.connector
+import dbCONFIG as cfg
 
 class CustomerDAO:
     db=""
     def __init__(self):
-        # Create the connector object
-        self.db = mysql.connector.connect(
-        host="127.0.0.1", 
-        user="root", 
-        password="root",
-        database="datarepresentation",
-        auth_plugin='mysql_native_password'
+        # Create the connector object from configuration file dbCONFIG.py
+        self.db     = mysql.connector.connect(
+        host        = cfg.mySQL['host'], 
+        user        = cfg.mySQL['user'], 
+        password    = cfg.mySQL['password'],
+        database    = cfg.mySQL['database'],
+        auth_plugin = cfg.mySQL['auth_plugin']
     )
 
     def create(self, values):
