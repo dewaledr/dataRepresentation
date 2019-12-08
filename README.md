@@ -1,9 +1,10 @@
-# dataRepresentation - The bigProject, 2019 ... (ID: G00364694)
+# dataRepresentation - The bigProject, 2019 ... 
+## Project FOLDER is called drProjects
 All works related to the Data Representation module are stored in this repository
 This repository hosts all files and documentation produced for the datarepresentation Project.
-In here, you will find a Flask server file, data access object (DAO) file, configuration template file and a Web page called __customerViewier.htm__. that are all relevant directly to the project.
+In here, you will find a Flask server file, data access object (DAO) file, configuration template file and a Web page called __customerViewer.htm__. that are all relevant directly to the project.
 
-This project is also hosted on the free __(pythonanywhere.com)__ cloud service which can be accessed [HERE](http://dewaledr.pythonanywhere.com/customerViewier.html)
+This project is also hosted on the free __(pythonanywhere.com)__ cloud service which can be accessed [HERE](http://dewaledr.pythonanywhere.com/customerViewer.html)
 ***
 # To run the WEB app, please:
 ## Ensure that A modern browser like Chrome or Firefox is avaialable on your machine. [Python/Visual Studio Code](https://www.anaconda.com) might also be needed at some point to make changes if needed.
