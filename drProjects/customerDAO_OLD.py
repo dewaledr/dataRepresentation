@@ -8,26 +8,19 @@ import dbCONFIG as cfg
 
 class CustomerDAO:
     db=""
-    db=""
-    def connectToDB(self):
+    def __init__(self):
+        # Create the connector object from configuration file dbCONFIG.py
         self.db     = mysql.connector.connect(
         host        = cfg.mySQL['host'], 
         user        = cfg.mySQL['user'], 
         password    = cfg.mySQL['password'],
         database    = cfg.mySQL['database'],
-        auth_plugin = cfg.mySQL['auth_plugin'])
-    
-    def __init__(self): 
-        self.connectToDB()
-
-    def getCursor(self):
-        if not self.db.is_connected():
-            self.connectToDB()
-        return self.db.cursor()
+        auth_plugin = cfg.mySQL['auth_plugin']
+    )
 
     def create(self, values):
         # Create a cursor object and insert the record with it
-        cursor = self.getCursor()
+        cursor = self.db.cursor()
         sql = """INSERT INTO customers(firstname,lastname,gender,age,lastvisit,product,amountspent) 
                 VALUES (%s, %s, %s, %s, %s, %s, %s)"""
         cursor.execute(sql, values)
@@ -35,7 +28,7 @@ class CustomerDAO:
         return cursor.lastrowid
 
     def getAll(self):
-        cursor = self.getCursor()
+        cursor = self.db.cursor()
         sql = "SELECT * FROM customers"
         cursor.execute(sql)
         result = cursor.fetchall()
@@ -47,7 +40,7 @@ class CustomerDAO:
         return returnArray
 
     def findByID(self, id):
-        cursor = self.getCursor()
+        cursor = self.db.cursor()
         sql = "SELECT * FROM customers WHERE id = %s"
         values = (id,)
 
@@ -56,7 +49,12 @@ class CustomerDAO:
         return self.convertToDictionary(result)
 
     def update(self, values):
-        cursor = self.getCursor()
+        cursor = self.db.cursor()
+        # cursor.execute ("UPDATE tblTableName 
+        # SET Year=%s, Month=%s, 
+        # Day=%s, Hour=%s, Minute=%s WHERE Server='%s' " 
+        # % (Year, Month, Day, Hour, Minute, ServerID))
+        # (firstname, lastname, gender, age, lastvisit, product, amountspent)
         sql =   """ UPDATE customers     
                     SET firstname=%s, lastname=%s, gender=%s, age=%s, 
                         lastvisit=%s, product=%s, amountspent=%s 
@@ -65,7 +63,7 @@ class CustomerDAO:
         self.db.commit()
 
     def delete(self, id):
-        cursor = self.getCursor()
+        cursor = self.db.cursor()
         sql = "DELETE FROM customers WHERE id = %s"
         values = (id,)
         cursor.execute(sql, values)

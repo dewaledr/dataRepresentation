@@ -107,3 +107,4 @@ venv.bak/
 *CONFIG.py
 big*
 week0*
+deployTo*.py
