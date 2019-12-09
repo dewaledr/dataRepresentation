@@ -17,5 +17,8 @@ This project is also hosted on the free __(pythonanywhere.com)__ cloud service w
 ### A basic understanding of RESTful API and Server are needed.
 ***
 ## Please download and install [Flask](https://pypi.org/project/Flask/) from PyPi. 
-## Ability to use (curl) for testing the Server interaction, (vi) for basic file editing and (GitHub) for versioning and file transfer are also very essential for this project
+- To start the Flask server, a small shell script named (runit) is included to start the server and enable error logging
+- A Python configuration file template is also included. This can be modified as a config.py file to hide the database login details
+- All relevant files needed to run the project are stored in the same location inside the drProjects folder
+- Ability to use (curl) for testing the Server interaction, (vi) for basic file editing and (GitHub) for versioning and file transfer are also very essential for this project
 ***
