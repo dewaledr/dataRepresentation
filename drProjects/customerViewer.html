@@ -53,7 +53,8 @@
     }
 
     img {
-        vertical-align: middle;
+        vertical-align: bottom;
+        /* vertical-align: middle; */
     }
     
     .container {
@@ -137,6 +138,8 @@
 
 	.f-color {
 	    color: blue;
+        font-weight: bold;
+        text-align:right;
 	}
 
     .g-color {
@@ -148,6 +151,12 @@
         font-weight: bold;
    	}
     
+       .w-color {
+   	    color: rgb(95, 93, 87);
+           /* color: rgb(34, 145, 80); */
+        /* font-weight: bold; */
+   	}
+
    .h-align{
         align-items: flex-end;
    }
@@ -219,17 +228,20 @@
                </div>
          </nav>
         <br/>
-        
+
         <div class="container my-sm-0 my-lg-0">
             <div class="row">
-                <div class="col-10">
-                    <h3>Customer Administration Page</h3><hr/>
+                <div class="col-4">
+                    <h3>Customer Administration</h3>
+                </div>
+                <div class="col-6">
+                    <h5><div id="writeHere" class="f-color" ></div></h5>
                 </div>
                 <div class="col-2">
                     <div style="display:inline"> <button id="showCreateButton" onclick="showCreate()"
                         type="button" class="btn btn-outline-success btn-md">Create a Customer</button></div>
                 </div> 
-            </div>
+            </div><hr/>
 
         <h4><div id="miscellFeedback" style="width:100%; display:inline-block; border: 4px solid red"></div></h4> </div>
 
@@ -468,7 +480,7 @@
     <div>
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand" href="#">&copy 2017 - 2019 GMIT Data Analytics</a>
-            <h5><div id="writeHere" class="f-color" ></div></h5> 
+            <!-- <h5><div id="writeHere" class="f-color" ></div></h5>  -->
     </div>
          </nav>
     </div>
@@ -678,7 +690,7 @@
                 addCustomerToTable(customer)
                 clearForm()
                 showViewAll()
-                document.getElementById("writeHere").innerText = 'Customer ' + result.id + " - (" + result.firstname + " " + result.lastname +') has been created...';
+                document.getElementById("writeHere").innerText = 'Customer ' + result.id + " - (" + result.firstname + " " + result.lastname +') created...';
                 // document.getElementById("writeHere").innerText = 'Customer ' + result.customer.id + " - (" + result.customer.firstname + " " + result.customer.lastname +') has been created...';
             },
             "error":function(xhr,status,error){
@@ -700,7 +712,7 @@
             contentType: "application/json; charset=utf-8",
             "success":function(result){
             //    console.log(result);
-               document.getElementById("writeHere").innerText = 'Customer ' + customer.id + ' detail has been updated successfully...' ;     
+               document.getElementById("writeHere").innerText = 'Customer ' + customer.id + ' detail updated successfully...' ;     
             //    document.getElementById("writeHere").innerText = 'Customer ' + result.customer.id + ' detail has been updated successfully...' ;     
             },
             "error":function(xhr,status,error){
