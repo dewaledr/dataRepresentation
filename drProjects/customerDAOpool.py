@@ -1,5 +1,5 @@
 """
-This is mySQL DB connection or model code for datarepresentation using mysql-connector
+This is mySQL DB connection or model code for datarepresentation using mysql-connector using connection pooling
 Written by:     Francis ADEPOJU
 Date Completed: December 15, 2019
 """
@@ -7,37 +7,44 @@ import mysql.connector
 import dbCONFIG as cfg
 
 class CustomerDAO:
-    db=""
-    def connectToDB(self):
-        self.db     = mysql.connector.connect(
+    
+    def initConnectToDB(self):
+        db = mysql.connector.connect(
             host        = cfg.mySQL['host'], 
             user        = cfg.mySQL['user'], 
             password    = cfg.mySQL['password'],
             database    = cfg.mySQL['database'],
-            auth_plugin = cfg.mySQL['auth_plugin']
+            # auth_plugin = cfg.mySQL['auth_plugin'],
+            pool_name='my_connection_pool',
+            pool_size=10
         )
+        return db
+    
+    def getConnection(self):
+        db = mysql.connector.connect(
+            pool_name='my_connection_pool'
+        )
+        return db
     
     def __init__(self): 
-        self.connectToDB()
-
-    def getCursor(self):
-        if not self.db.is_connected():
-            self.connectToDB()
-        return self.db.cursor()
+        db = self.initConnectToDB()
+        db.close()
 
     def create(self, values):
         # Create a cursor object and insert the record with it
-        cursor = self.getCursor()
+        db = self.getConnection()
+        cursor = db.cursor()
         sql = """INSERT INTO customers(firstname,lastname,gender,age,lastvisit,product,amountspent) 
                 VALUES (%s, %s, %s, %s, %s, %s, %s)"""
         cursor.execute(sql, values)
-        self.db.commit()
-        lastRowID = cursor.lastrowid
-        cursor.close()
-        return lastRowID
+        db.commit()
+        lastRowId = cursor.lastrowid
+        db.close()
+        return lastRowId
 
     def getAll(self):
-        cursor = self.getCursor()
+        db  = self.getConnection()
+        cursor = db.cursor()
         sql = "SELECT * FROM customers"
         cursor.execute(sql)
         result = cursor.fetchall()
@@ -46,37 +53,42 @@ class CustomerDAO:
         for res in result:
             print(res)
             returnArray.append(self.convertToDictionary(res))
-        cursor.close()
+        db.close()
         return returnArray
+        
 
     def findByID(self, id):
-        cursor = self.getCursor()
+        db = self.getConnection()
+        cursor = db.cursor()
         sql = "SELECT * FROM customers WHERE id = %s"
         values = (id,)
 
         cursor.execute(sql, values)
         result = cursor.fetchone()
-        customer =  self.convertToDictionary(result)
-        cursor.close()
+        customer = self.convertToDictionary(result)
+        db.close()
         return customer
 
     def update(self, values):
-        cursor = self.getCursor()
+        db = self.getConnection()
+        cursor = db.cursor()
         sql =   """ UPDATE customers     
-                    SET firstname=%s, lastname=%s, gender=%s, age=%s, lastvisit=%s, product=%s, amountspent=%s 
-                    WHERE id=%s """
+                    SET firstname=%s, lastname=%s, gender=%s, age=%s, 
+                        lastvisit=%s, product=%s, amountspent=%s 
+                    WHERE id=%s"""
         cursor.execute(sql, values)
-        self.db.commit()
-        cursor.close()
+        db.commit()
+        db.close()
 
     def delete(self, id):
-        cursor = self.getCursor()
+        db = self.getConnection()
+        cursor = db.cursor()
         sql = "DELETE FROM customers WHERE id = %s"
         values = (id,)
         cursor.execute(sql, values)
-        self.db.commit()
-        cursor.close()
+        db.commit()
         print("deleted...")
+        db.close()
 
     def convertToDictionary(self, result):
         colnames=['id','firstname','lastname', 'gender', 'age','lastvisit','product','amountspent']

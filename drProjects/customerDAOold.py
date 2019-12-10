@@ -8,36 +8,27 @@ import dbCONFIG as cfg
 
 class CustomerDAO:
     db=""
-    def connectToDB(self):
+    def __init__(self):
+        # Create the connector object from configuration file dbCONFIG.py
         self.db     = mysql.connector.connect(
-            host        = cfg.mySQL['host'], 
-            user        = cfg.mySQL['user'], 
-            password    = cfg.mySQL['password'],
-            database    = cfg.mySQL['database'],
-            auth_plugin = cfg.mySQL['auth_plugin']
-        )
-    
-    def __init__(self): 
-        self.connectToDB()
-
-    def getCursor(self):
-        if not self.db.is_connected():
-            self.connectToDB()
-        return self.db.cursor()
+        host        = cfg.mySQL['host'], 
+        user        = cfg.mySQL['user'], 
+        password    = cfg.mySQL['password'],
+        database    = cfg.mySQL['database'],
+        auth_plugin = cfg.mySQL['auth_plugin']
+    )
 
     def create(self, values):
         # Create a cursor object and insert the record with it
-        cursor = self.getCursor()
+        cursor = self.db.cursor()
         sql = """INSERT INTO customers(firstname,lastname,gender,age,lastvisit,product,amountspent) 
                 VALUES (%s, %s, %s, %s, %s, %s, %s)"""
         cursor.execute(sql, values)
         self.db.commit()
-        lastRowID = cursor.lastrowid
-        cursor.close()
-        return lastRowID
+        return cursor.lastrowid
 
     def getAll(self):
-        cursor = self.getCursor()
+        cursor = self.db.cursor()
         sql = "SELECT * FROM customers"
         cursor.execute(sql)
         result = cursor.fetchall()
@@ -46,36 +37,37 @@ class CustomerDAO:
         for res in result:
             print(res)
             returnArray.append(self.convertToDictionary(res))
-        cursor.close()
         return returnArray
 
     def findByID(self, id):
-        cursor = self.getCursor()
+        cursor = self.db.cursor()
         sql = "SELECT * FROM customers WHERE id = %s"
         values = (id,)
 
         cursor.execute(sql, values)
         result = cursor.fetchone()
-        customer =  self.convertToDictionary(result)
-        cursor.close()
-        return customer
+        return self.convertToDictionary(result)
 
     def update(self, values):
-        cursor = self.getCursor()
+        cursor = self.db.cursor()
+        # cursor.execute ("UPDATE tblTableName 
+        # SET Year=%s, Month=%s, 
+        # Day=%s, Hour=%s, Minute=%s WHERE Server='%s' " 
+        # % (Year, Month, Day, Hour, Minute, ServerID))
+        # (firstname, lastname, gender, age, lastvisit, product, amountspent)
         sql =   """ UPDATE customers     
-                    SET firstname=%s, lastname=%s, gender=%s, age=%s, lastvisit=%s, product=%s, amountspent=%s 
-                    WHERE id=%s """
+                    SET firstname=%s, lastname=%s, gender=%s, age=%s, 
+                        lastvisit=%s, product=%s, amountspent=%s 
+                    WHERE id=%s"""
         cursor.execute(sql, values)
         self.db.commit()
-        cursor.close()
 
     def delete(self, id):
-        cursor = self.getCursor()
+        cursor = self.db.cursor()
         sql = "DELETE FROM customers WHERE id = %s"
         values = (id,)
         cursor.execute(sql, values)
         self.db.commit()
-        cursor.close()
         print("deleted...")
 
     def convertToDictionary(self, result):
