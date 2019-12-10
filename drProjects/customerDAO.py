@@ -7,33 +7,28 @@ import mysql.connector
 import dbCONFIG as cfg
 
 class CustomerDAO:
-    # db=""
+    
     def initConnectToDB(self):
-        db          = mysql.connector.connect(
-        host        = cfg.mySQL['host'], 
-        user        = cfg.mySQL['user'], 
-        password    = cfg.mySQL['password'],
-        database    = cfg.mySQL['database'],
-        auth_plugin = cfg.mySQL['auth_plugin'],
-        pool_name='FA_connection_pool',
-        pool_size=10
+        db = mysql.connector.connect(
+            host        = cfg.mySQL['host'], 
+            user        = cfg.mySQL['user'], 
+            password    = cfg.mySQL['password'],
+            database    = cfg.mySQL['database'],
+            # auth_plugin = cfg.mySQL['auth_plugin'],
+            pool_name='my_connection_pool',
+            pool_size=10
         )
         return db
     
     def getConnection(self):
         db = mysql.connector.connect(
-            pool_name='FA_connection_pool'
+            pool_name='my_connection_pool'
         )
         return db
     
     def __init__(self): 
         db = self.initConnectToDB()
         db.close()
-
-    # def getCursor(self):
-    #     if not self.db.is_connected():
-    #         self.connectToDB()
-    #     return self.db.cursor()
 
     def create(self, values):
         # Create a cursor object and insert the record with it
