@@ -4,14 +4,15 @@ Written by:     Francis ADEPOJU
 Date Completed: December 15, 2019
 """
 import mysql.connector
+import dbCONFIG as cfg
 
 # Create the connector object
 mydb = mysql.connector.connect(
-    host="localhost", 
-    user="root", 
-    password="root",
-    database="datarepresentation",
-    auth_plugin='mysql_native_password'
+    host        = cfg.mySQL['host'], 
+    user        = cfg.mySQL['user'], 
+    password    = cfg.mySQL['password'],
+    database    = cfg.mySQL['database'],
+    auth_plugin = cfg.mySQL['auth_plugin']
 )
 
 # Create a cursor object
