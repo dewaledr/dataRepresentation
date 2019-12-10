@@ -14,9 +14,9 @@ class CustomerDAO:
         user        = cfg.mySQL['user'], 
         password    = cfg.mySQL['password'],
         database    = cfg.mySQL['database'],
-        pool_name   = 'FA_connection_pool',
-        pool_size   = 10,
-        auth_plugin = cfg.mySQL['auth_plugin']
+        auth_plugin = cfg.mySQL['auth_plugin'],
+        pool_name='FA_connection_pool',
+        pool_size=10
         )
         return db
     
