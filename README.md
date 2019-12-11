@@ -11,7 +11,8 @@ This project is also hosted on the free __(pythonanywhere.com)__ cloud service w
 ## The requirement for Python and VSC can be met by installing the [Anaconda](https://www.anaconda.com) Python distribution, Version 3.7 or later version
 ***
 ## Please NOTE: 
-- MySQL database needs to be configured on your machine. 
+- Flask Server and MySQL database needs to be configured on your machine in order to run this application locally.
+_ The Configuration file also needs to be modified to suit local preferences.
 - Ability to interact with MySQL is very important for all CRUD operations in this project.
 - It is also very important to have a good understanding of __HTML, Javascript, AJAX, JSON Objects__
 - A basic understanding of RESTful API and Server are needed.
