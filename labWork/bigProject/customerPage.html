@@ -1,0 +1,251 @@
+<!-- Big Project ...WEB Application (customerPage.html)
+    Developing a customer WEB API to tract and manage Customers visiting our business
+    The idea is to enable us profile customer behaviour regarding what they buy, their age group,
+    budget, etc...
+    These data could be extracted from the database in the future in order to reach out to specific customers for the 
+    purpose of introducing them to our new line of business or products and to also determine rewards for loyal customers. 
+    
+    Scope:
+    1.	A basic Flask server that has a 
+    2.	REST API, (to perform CRUD operations)
+    3.	One database table and
+    4.	Accompanying web interface, using AJAX calls, to perform these CRUD operations
+
+    Written: Francis Adepoju, Nov - Dec, 2019 -->
+
+    <html>
+        <head>
+                <link rel="stylesheet" 
+                href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+                crossorigin="anonymous">
+            <title>Customers</title>
+        </head>
+        <body>
+            <h1>Customers</h1>
+                <span><button id="showCreateButton" onclick="showCreate()">Create</button></span>
+                <!--<hr/> -->
+            <div>
+                <table class="table" id="carTable">
+                    <tr>
+                        <th>CusID</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                        <th>LastVisit</th>
+                        <th>Product</th>
+                        <th>TotalPurchase</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                    <tr id="100">
+                        <th>100</th>
+                        <th>Francis</th>
+                        <th>Adepoju</th>
+                        <th>M</th>
+                        <th>78</th>
+                        <th>11-11-2019</th>
+                        <th>iPhone</th>
+                        <th>2000</th>
+                        <td><button onclick="showUpdate(this)">Update</button></td>
+                        <td><button onclick="doDelete(this)">Delete</button></td>
+                    </tr>
+                    <tr id="101">
+                        <th>101</th>
+                        <th>Ann</th>
+                        <th>Schmitz</th>
+                        <th>F</th>
+                        <th>24</th>
+                        <th>15-02-2018</th>
+                        <th>Blender</th>
+                        <th>250</th>
+                        <td><button onclick="showUpdate(this)">Update</button></td>
+                        <td><button onclick="doDelete(this)">Delete</button></td>
+                    </tr>
+                    <tr id="102">
+                        <th>102</th>
+                        <th>Philip</th>
+                        <th>McGinley</th>
+                        <th>M</th>
+                        <th>37</th>
+                        <th>29-08-2019</th>
+                        <th>Trainers</th>
+                        <th>199</th>
+                        <td><button onclick="showUpdate(this)">Update</button></td>
+                        <td><button onclick="doDelete(this)">Delete</button></td>
+                    </tr>
+                </table>
+            </div>
+    
+            <div id="createUpdateForm" style="display:none">
+            <h3>
+                <hr/>
+                <span id="createLabel">Create a</span>
+                <span id="updateLabel">Update this</span> Customer
+            </h3>
+                First Name <input type="text" name="firstname"/><br/>
+                Last Name <input type="text" name="lastname"/><br/>
+                Gender.......<select name="gender">
+                    <option value="F">Female</option>
+                    <option value="M">Male</option>
+                    </select><br/>
+                Age Group <select name="age">
+                    <option value="teenager">13 -18</option>
+                    <option value="adult_1">19 - 25</option>
+                    <option value="adult_2">26 - 35</option>
+                    <option value="adult_3">36 - 45</option>
+                    <option value="adult_4">55 - 65</option>
+                    <option value="senior">66 - 150</option>
+                </select><br/>   
+                Date of Last Visit  <input type="text" name="lastvisit"/><br/>
+                Product Bought...<input type="text" name="product"/><br/>
+                Total Price............<input type="text" name="totalspent"/><br/>
+                <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
+                <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
+            </div>
+        </body>
+            <script>
+                function showCreate(){
+    
+                    document.getElementById('showCreateButton').style.display="none"
+                    document.getElementById('carTable').style.display="none"
+                    document.getElementById('createUpdateForm').style.display="block"
+    
+                    document.getElementById('createLabel').style.display="inline"
+                    document.getElementById('updateLabel').style.display="none"
+    
+                    document.getElementById('doCreateButton').style.display="block"
+                    document.getElementById('doUpdateButton').style.display="none"
+                }
+    
+                function showViewAll(){
+                    document.getElementById('showCreateButton').style.display="block"
+                    document.getElementById('carTable').style.display="block"
+                    document.getElementById('createUpdateForm').style.display="none"
+                }
+    
+                function showUpdate(buttonElement){
+    
+                    document.getElementById('showCreateButton').style.display="none"
+                    document.getElementById('carTable').style.display="none"
+                    document.getElementById('createUpdateForm').style.display="block"
+    
+                    document.getElementById('createLabel').style.display="none"
+                    document.getElementById('updateLabel').style.display="inline"
+    
+                    document.getElementById('doCreateButton').style.display="none"
+                    document.getElementById('doUpdateButton').style.display="block"
+    
+                    var rowElement = buttonElement.parentNode.parentNode
+                    // This is a way of finding closest <tr> which would be safer than closest()
+                    var car = getCarFromRow(rowElement)
+                    populateFormWithCar(car)
+                }
+    
+                function doCreate(){
+                    //
+                    var form = document.getElementById('createUpdateForm')
+    
+                    var car   = {}
+                    car.reg   = form.querySelector('input[name="reg"]').value
+                    car.make  = form.querySelector('select[name="make"]').value
+                    car.model = form.querySelector('input[name="model"]').value
+                    car.price = form.querySelector('input[name="price"]').value
+                    
+                    console.log(JSON.stringify(car))
+    
+                    addCarToTable(car)
+                    clearForm()
+                    showViewAll()
+                }
+    
+                function doUpdate(){
+                    var car = getCarFromForm()
+                    console.log(JSON.stringify(car))
+    
+                    var rowElement = document.getElementById(car.reg)
+                    setCarInRow(rowElement,car)
+    
+                    clearForm()
+                    showViewAll()
+                }
+    
+                function addCarToTable(car){
+                    var tableElement = document.getElementById('carTable')
+                    var rowElement = tableElement.insertRow(-1)
+                    
+                    // Set attributes
+                    rowElement.setAttribute('id',car.reg)
+    
+                    var cell1 = rowElement.insertCell(0);
+                    cell1.innerHTML = car.reg
+                    var cell2 = rowElement.insertCell(1);
+                    cell2.innerHTML = car.make
+                    var cell3 = rowElement.insertCell(2);
+                    cell3.innerHTML = car.model
+                    var cell4 = rowElement.insertCell(3);
+                    cell4.innerHTML = car.price
+                    var cell5 = rowElement.insertCell(4);
+                    cell5.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+                    var cell6 = rowElement.insertCell(5);
+                    cell6.innerHTML = '<button onclick=doDelete(this)>delete</button>'
+                }
+    
+                function clearForm(){
+                    var form = document.getElementById('createUpdateForm')
+    
+                    form.querySelector('input[name="reg"]').disabled = false
+                    form.querySelector('input[name="reg"]').value =''
+                    form.querySelector('select[name="make"]').value =''
+                    form.querySelector('input[name="model"]').value =''
+                    form.querySelector('input[name="price"]').value =''
+                }
+    
+                function getCarFromRow(rowElement){
+                    var car = {}
+                    car.reg = rowElement.cells[0].firstChild.textContent
+                    car.make = rowElement.cells[1].firstChild.textContent
+                    car.model = rowElement.cells[2].firstChild.textContent
+                    car.price = rowElement.cells[3].firstChild.textContent
+                    return car
+                }
+    
+                function getCarFromForm(){
+                    var form = document.getElementById('createUpdateForm')
+                    //var form = document.getElementById('carTable')
+                    console.log(JSON.stringify(car))
+                    var car = {}
+                    car.reg = form.querySelector('input[name="reg"]').value
+                    car.make = form.querySelector('select[name="make"]').value
+                    car.model = form.querySelector('input[name="model"]').value
+                    car.price = form.querySelector('input[name="price"]').value
+                    console.log(JSON.stringify(car))
+                    return car
+                }
+    
+                function populateFormWithCar(car){
+                    var form = document.getElementById('createUpdateForm')
+                    form.querySelector('input[name="reg"]').disabled = true
+    
+                    form.querySelector('input[name="reg"]').value = car.reg
+                    form.querySelector('select[name="make"]').value = car.make
+                    form.querySelector('input[name="model"]').value = car.model
+                    form.querySelector('input[name="price"]').value = car.price
+                    return(car)
+                }
+    
+                function setCarInRow(rowElement, car){
+                    rowElement.cells[0].firstChild.textContent=car.reg
+                    rowElement.cells[1].firstChild.textContent=car.make
+                    rowElement.cells[2].firstChild.textContent=car.model
+                    rowElement.cells[3].firstChild.textContent=car.price
+                }
+    
+                function doDelete(r){
+                    var tableElement = document.getElementById('carTable')
+                    var index = r.parentNode.parentNode.rowIndex
+                    tableElement.deleteRow(index)
+                }
+            </script>
+    </html>

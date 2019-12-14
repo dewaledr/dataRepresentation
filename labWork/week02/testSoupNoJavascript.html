@@ -1,0 +1,90 @@
+<!-- Lab 1 with extended functionality. 
+    Created October 4-6, 2019, FA -->
+
+<html>
+    <head>
+            <link rel="stylesheet" 
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+            crossorigin="anonymous">
+        <title>View Cars</title>
+    </head>
+    <body>
+        <h1>Cars</h1>
+            <span><button id="showCreateButton" onclick="showCreate()">Create</button></span>
+            <hr/>
+        <div>
+            <table class="table" id="carTable">
+                <tr>
+                    <th>Reg</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Price</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                <tr id="191 MO 123">
+                    <td>191 MO 123</td>
+                    <td>Ford</td>
+                    <td>Mondeo</td>
+                    <td>25000</td>
+                    <td><button onclick="showUpdate(this)">Update</button></td>
+                    <td><button onclick="doDelete(this)">Delete</button></td>
+                </tr>
+                <tr id="12 D 1230">
+                    <td>12 D 1230</td>
+                    <td>Fiat</td>
+                    <td>Punto</td>
+                    <td>4000</td>
+                    <td><button onclick="showUpdate(this)">Update</button></td>
+                    <td><button onclick="doDelete(this)">Delete</button></td>
+                </tr>
+                <tr id="08 G 1233">
+                    <td>08 G 1233</td>
+                    <td>Nissan</td>
+                    <td>Almera</td>
+                    <td>500</td>
+                    <td><button onclick="showUpdate(this)">Update</button></td>
+                    <td><button onclick="doDelete(this)">Delete</button></td>
+                </tr>
+                <tr id="192 L 76702">
+                    <td>192 L 76702</td>
+                    <td>Landrover</td>
+                    <td>Discovery</td>
+                    <td>98000</td>
+                    <td><button onclick="showUpdate(this)">Update</button></td>
+                    <td><button onclick="doDelete(this)">Delete</button></td>
+                </tr>
+                <tr id="131 L 1032">
+                    <td>131 L 1032</td>
+                    <td>Hyundai</td>
+                    <td>i-10</td>
+                    <td>6600</td>
+                    <td><button onclick="showUpdate(this)">Update</button></td>
+                    <td><button onclick="doDelete(this)">Delete</button></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="createUpdateForm" style="display:none">
+        <h3>
+            <hr/>
+            <span id="createLabel">Create a</span>
+            <span id="updateLabel">Update this</span> Car
+        </h3>
+            Reg <input type="text" name="reg"/><br/>
+            Make <select name="make">
+                <option value="Ford">Ford</option>
+                <option value="Fiat">Fiat</option>
+                <option value="Hyundai">Hyundai</option>
+                <option value="Nissan">Nissan</option>
+                <option value="Landrover">Landrover</option>
+            </select><br/>
+            Model <input type="text" name="model"/><br/>
+            Price <input type="number" name="price"/><br/>
+
+            <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
+            <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
+        </div>
+    </body>
+</html>

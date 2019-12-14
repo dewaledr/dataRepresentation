@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<libraryCatalogue>
+	<Books category="Technical">
+		<ISBN>978-1-491-91205-8</ISBN>
+		<Title>Python Data Science Handbook</Title>
+		<Author>Jake VanderPlas</Author>
+	</Books>
+	
+	<Books category="nonTechnical">
+		<ISBN>978-0-13-480115-5 </ISBN>
+		<Title>Starting Out with Programming Logic and Design</Title>
+		<Author>Tony Gaddis</Author>
+	</Books>
+
+</libraryCatalogue>

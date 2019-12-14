@@ -1,0 +1,742 @@
+<!-- Created by:    Francis Adepoju -->
+<!-- Date:          November 10 - December 18, 2019  -->
+<!-- Using Bootstrap to beautify my WEB Interface... -->
+<!--
+1) This Web Page allows the user to ‘view the Customer history’ 
+2) It allows the user to add, modify and edit Customer record on the REST server and in the Database
+3) Web page performs form validation through JavaScript/AJAX to ensure that: important text fields are not empty;
+4) It Connects to a database that contains relevant site information
+   (e.g. product info and Customer records);
+5) Web page employs the Bootstrap framework (via CDN)
+6) The Web Page is responsive. That means it would display on standard devices
+   from large screen monitors, to tablets and phones.
+7) This Web Page is deployed to run both on local Flask server as well as pythonanywhere.com flask server
+8) on Local machine, the url to run this page is: "http://127.0.0.1:5000/customerViewer.html"
+9) on PythonAnywhere, the url to run this page is: "http://dewaledr.pythonanywhere.com/customerViewerPA.html"
+10)
+-->
+
+
+<html lang="en">
+    <head>
+        <!-- <title> view Customers</title> -->
+        <!-- Needed for AJAX -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+        <!-- Some CSS for this project -->
+        <!-- Required meta tags -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="utf-8">
+   <!--  <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
+    <!-- Google Font Library -->
+    <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One" rel="stylesheet">
+    <title>Customer Admin</title>
+
+    <style>
+    * {box-sizing: border-box}
+
+      /* body {font-family: Verdana, sans-serif; margin:0} */
+    body {
+        /* font-family: Verdana, sans-serif; margin: 0; */
+      	/* background-image: url("images/background.jpg"); */
+        /* background-image: url('images/snowMountain.jpg'); */
+        /* background-image: url('images/myBackground.jpg'); */
+        background-color: rgb(157, 227, 248);
+      	/* background-position: center; */
+    }
+
+    img {
+        vertical-align: middle;
+    }
+    
+    /* FA... Get Image to fill up the jumbotron view minding the aspect ratio...*/
+    .jumbotron {
+        /* background-size: align-items-center;
+        background-size: center center; */
+        max-width: 100%;
+        /*   max-height: 500px;*/
+    }
+    
+    .container {
+        width: 100%;
+        margin-top:0px;
+        /* background:rgb(248, 248, 248); */
+        background:white;
+    }
+
+    h3 {
+        margin: 0px;
+    }
+    /* Next & previous buttons */
+    .prev, .next {
+        position: absolute;
+        cursor: pointer;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: white;
+        font-weight: bold;
+        font-size: 25px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+    }
+
+      /* Position the "next button" to the right */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover, .next:hover {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+    .siteName {
+	    color: cornflowerblue;
+	    font-family: 'Alfa Slab One', cursive;
+	    text-shadow: 5px 5px 8px black;
+	    text-align: left;
+	    font-size: 3.5em;
+	    text-indent: 35px;
+        padding-top: 5px;
+	    padding-bottom: 25px;
+    }
+
+    /* Caption text */
+    .text {
+    /*   color: #f2f2f2; */
+        color: white;
+        font-size: 20px;
+    /*   padding: 8px 12px;
+        position: absolute;
+        bottom: 8px;
+        width: 100%;*/
+        text-align: bottom;
+    }
+
+    .Scode {
+        text-transform: uppercase;
+        max-width: 50px;
+    }
+
+    .l-header{
+        text-align: left;
+        color: green;
+        font-weight: lighter;
+        font-size: 12px;
+    }
+
+    .b-color {
+   		/* background: lightblue; */
+         /* background: lightgrey; */
+        background: #f2f2f2;
+   	}
+
+	.f-color {
+	    color: blue;
+	}
+
+    .g-color {
+   	    color: red;
+   	}
+        
+    .s-color {
+   	    color: brown;
+        font-weight: bold;
+   	}
+    
+   .h-align{
+        align-items: flex-end;
+   }
+
+   .r-align { 
+        text-align:right;
+    }
+
+      /* Number text (1/3 etc) */
+    .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+
+    /* The dots/bullets/indicators */
+    .dot {
+        cursor: pointer;
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+    }
+
+    .active, .dot:hover {
+        background-color: #717171;
+    }
+
+    /* On smaller screens, decrease text size */
+    @media only screen and (max-width: 300px) {
+        .prev, .next,.text {font-size: 11px}
+    }
+   </style>
+
+  </head>
+<!-- End CSS For this project -->
+<!-- Static Nav Bar with Logo -->
+    <!-- <body onload="getAllCustomerAjax()"> -->
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+                    <a class="navbar-brand" href="#"></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                         <span class="navbar-toggler-icon"></span>
+                    </button>
+      
+               <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                       <div class="d-flex align-items">
+                          <li class="nav-item">
+                             <a class="nav-link disabled"><img src="logo.jpg" width="80" ></a>
+                         </li>
+                         <li class="nav-item">
+                            <h5 class="siteName"> FrancisAdepoju&trade; Inc.</h5>
+                            <!-- <h4 class="siteName" text-align="center">FrancisAdepoju&trade; Inc.</h4> -->
+                        </li>
+                     </div>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+               </div>
+         </nav>
+        <br/>
+        <!--  -->
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <h3>Customer Administration Page</h3><hr/>
+                </div>
+                <div class="col-2">
+                    <div style="display:inline"> <button id="showCreateButton" onclick="showCreate()"
+                        type="button" class="btn btn-outline-success btn-md">Create a Customer</button></div>
+                </div> 
+            </div>
+
+        <h4><div id="miscellFeedback" style="width:100%; display:inline-block; border: 4px solid red"></div></h4> </div>
+
+        <div class="container">
+            <table class="table table-striped" id="customerTable">
+                <tr class="table-primary">
+                        <th>CustomerID</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                        <th>Last Visit Date</th>
+                        <th>Product Bought</th>
+                        <th>Amount Spent (€)</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                </tr>
+                
+            </table>
+        </div>
+        <hr/>
+        
+    <!-- </form>  -->
+    <!-- END FORM -->
+            <!-- <form class="form-inline my-2 my-lg-0"> -->
+            <div class="container" id='createCustomerForm' style="display: none">
+                <h2><span id="createLabel">Create a New Customer</span></h2>
+                <div class="row">
+                    <div class="col-2 r-align">
+                        <div style="display: inline">
+                            First Name:
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div style="display: inline">
+                            <input type="text" name="firstname" /><br/><br/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2 r-align">
+                        <div style="display: inline">
+                            Last Name:
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div style="display: inline">
+                            <input type="text" name="lastname" /><br/><br/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2 r-align">
+                        <div style="display: inline">
+                            Gender:
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div style="display: inline">
+                            <select name="gender"> 
+                                <option value="F">Female</option>
+                                <!-- <option value="F" selected="selected">Female</option> -->
+                                <option value="M">Male</option>
+                            </select><br/><br/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2 r-align">
+                        <div style="display: inline">
+                            Age Group:
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div style="display: inline">
+                            <select name="age"> 
+                                <option value="13-18">13-18</option>
+                                <option value="19-25">19-25</option>
+                                <option value="26-35">26-35</option>
+                                <!-- <option value="36-45" selected="selected">36-45</option> -->
+                                <option value="36-45">36-45</option>
+                                <option value="46-66">46-66</option>
+                                <option value="67-99">67-99</option>
+                            </select><br/> <br/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2 r-align">
+                        <div style="display: inline">
+                            Date of Last Visit:
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div style="display: inline">
+                            <input type="date" name="lastvisit"/><br/><br/>
+                        </div>
+                    </div>
+                    <div class="col-2 r-align">
+                        <div style="display: inline">
+                            Product Bought:
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div style="display: inline">
+                            <input type="text" name="product" placeholder="Item Purchased"/><br/><br/>
+                        </div>
+                    </div>
+                    <div class="col-2 r-align">
+                        <div style="display: inline">
+                            Amount Spent:
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div style="display: inline">
+                            <input type="text" name="amountspent" placeholder="Amount in €"/><br/><br/>
+                        </div>
+                    </div>
+                </div>           
+            <!-- </div> -->
+            <hr/>
+                <span><button id="doCreateButton" onclick="doCreate()"
+                    type="button" class="btn btn-outline-success btn-md">Create Customer</button></span>
+            </div>
+            <!-- </form> -->
+
+        <!-- <form class="form-inline my-2 my-lg-0"> -->
+        <div class="container" id='createUpdateForm' style="display: none">
+            <h2><span id="updateLabel">Update this Customer</span></h2>
+            <div class="row">
+                <div class="col-2 r-align">
+                    <div style="display: inline">
+                        CustomerID:
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div style="display: inline">
+                        <input type="text" name="id" aria-label="ID"/> <br/><br/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 r-align">
+                    <div style="display: inline">
+                        First Name:
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div style="display: inline">
+                        <input type="text" name="firstname"/><br/><br/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 r-align">
+                    <div style="display: inline">
+                        Last Name:
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div style="display: inline">
+                        <input type="text" name="lastname"/><br/><br/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 r-align">
+                    <div style="display: inline">
+                        Gender:
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div style="display: inline">
+                        <select name="gender"> 
+                            <option value="F">Female</option>
+                            <option value="M">Male</option>
+                        </select><br/><br/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 r-align">
+                    <div style="display: inline">
+                        Age Group:
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div style="display: inline">
+                        <select name="age"> 
+                            <option value="13-18">13-18</option>
+                            <option value="19-25">19-25</option>
+                            <option value="26-35">26-35</option>
+                            <option value="36-45">36-45</option>
+                            <option value="46-66">46-66</option>
+                            <option value="67-99">67-99</option>
+                        </select><br/> <br/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 r-align">
+                    <div style="display: inline">
+                        Date of Last Visit:
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div style="display: inline">
+                        <input type="date" name="lastvisit"/><br/><br/>
+                    </div>
+                </div>
+                <div class="col-2 r-align">
+                    <div style="display: inline">
+                        Product Bought:
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div style="display: inline">
+                        <input type="text" name="product"/><br/><br/>
+                    </div>
+                </div>
+                <div class="col-2 r-align">
+                    <div style="display: inline">
+                        Amount Spent:
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div style="display: inline">
+                        <input type="text" name="amountspent"/><br/><br/>
+                    </div>
+                </div>
+            </div>           
+        <!-- </div> -->
+        <hr/>
+            <span><button id="doUpdateButton" onclick="doUpdate()"
+                type="button" class="btn btn-primary btn-md">Update Customer</button></span>
+        </div>
+        <!-- </form> -->
+    <div>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#">&copy 2017 - 2019 GMIT Data Analytics</a>
+            <h5><div id="writeHere" class="f-color" ></div></h5> 
+    </div>
+         </nav>
+    </div>
+    </body>
+    <script>
+    function showCreate(){
+        document.getElementById('showCreateButton').style.display="none"
+        document.getElementById('customerTable').style.display="none"
+        document.getElementById('createCustomerForm').style.display="block"
+        document.getElementById('createLabel').style.display="inline"
+        document.getElementById('updateLabel').style.display="none"
+        document.getElementById('doCreateButton').style.display="block"
+        document.getElementById('doUpdateButton').style.display="none"
+    }
+    function showViewAll(){
+        document.getElementById('showCreateButton').style.display="block"
+        document.getElementById('customerTable').style.display="block"
+        document.getElementById('createCustomerForm').style.display="none"
+        document.getElementById('createUpdateForm').style.display="none"
+    }
+
+    function showUpdate(buttonElement){
+        document.getElementById('showCreateButton').style.display="none"
+        document.getElementById('customerTable').style.display="none"
+        document.getElementById('createUpdateForm').style.display="block"
+        document.getElementById('createLabel').style.display="none"
+        document.getElementById('updateLabel').style.display="inline"
+        document.getElementById('doCreateButton').style.display="none"
+        document.getElementById('doUpdateButton').style.display="block"
+        // these is a way of finding the closest <tr> which would safer, closest()
+        var rowElement = buttonElement.parentNode.parentNode
+              
+        var customer = getCustomerFromRow(rowElement)
+        populateFormWithCustomer(customer)
+    }
+
+    function clearForm(){
+        var form = document.getElementById('createUpdateForm')
+        // form.querySelector('input[name="id"]').disabled = false
+        form.querySelector('input[name="firstname"]').value=''
+        form.querySelector('input[name="lastname"]').value=''
+        form.querySelector('select[name="gender"]').value=''
+        form.querySelector('select[name="age"]').value=''
+        form.querySelector('input[name="lastvisit"]').value=''
+        form.querySelector('input[name="product"]').value=''
+        form.querySelector('input[name="amountspent"]').value=''
+    }
+
+    function doCreate(){
+        var form = document.getElementById('createCustomerForm')
+        var customer = {}
+        // customer.id        = form.querySelector('input[name="id"]').value
+        customer.firstname = form.querySelector('input[name="firstname"]').value
+        customer.lastname  = form.querySelector('input[name="lastname"]').value
+        customer.gender    = form.querySelector('select[name="gender"]').value
+        customer.age       = form.querySelector('select[name="age"]').value
+        customer.lastvisit = form.querySelector('input[name="lastvisit"]').value
+        customer.product   = form.querySelector('input[name="product"]').value
+        customer.amountspent= form.querySelector('input[name="amountspent"]').value
+        console.log(JSON.stringify(customer))
+        createCustomerAjax(customer)
+        // addCustomerToTable(customer)
+        // clearForm()
+        // showViewAll()  
+    }
+
+    function doUpdate(){
+        var customer = getCustomerFromForm();
+        var rowElement = document.getElementById(customer.id);
+        updateCustomerAjax(customer);
+        setCustomerInRow(rowElement,customer);
+       
+        clearForm();
+        showViewAll();
+    }
+
+    function doDelete(r){
+        var tableElement = document.getElementById('customerTable');
+        var rowElement = r.parentNode.parentNode;
+        var index = rowElement.rowIndex;
+        deleteCustomerAjax(rowElement.getAttribute("id"));
+        tableElement.deleteRow(index);
+    }
+
+    function addCustomerToTable(customer){
+        var tableElement = document.getElementById('customerTable')
+        var rowElement = tableElement.insertRow(-1)
+        rowElement.setAttribute('id',customer.id)
+        var cell1 = rowElement.insertCell(0);
+        cell1.innerHTML = customer.id
+        var cell2 = rowElement.insertCell(1);
+        cell2.innerHTML = customer.firstname
+        var cell3 = rowElement.insertCell(2);
+        cell3.innerHTML = customer.lastname
+        var cell4 = rowElement.insertCell(3);
+        cell4.innerHTML = customer.gender
+        var cell5 = rowElement.insertCell(4);
+        cell5.innerHTML = customer.age
+        var cell6 = rowElement.insertCell(5);
+        cell6.innerHTML = customer.lastvisit
+        var cell7 = rowElement.insertCell(6);
+        cell7.innerHTML = customer.product
+        
+        var cell8 = rowElement.insertCell(7);
+        cell8.innerHTML = customer.amountspent
+        
+        var cell9 = rowElement.insertCell(8);
+        // cell9.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+        cell9.innerHTML = '<button type="button" class="btn btn-primary btn-sm" onclick="showUpdate(this)">Update</button>'
+        
+        var cell10 = rowElement.insertCell(9);
+        cell10.innerHTML = '<button type="button" class="btn btn-danger btn-sm" onclick=doDelete(this)>delete</button>'
+    }
+
+    function getCustomerFromRow(rowElement){
+        var customer ={}
+        customer.id         = rowElement.getAttribute('id')
+        // ustomer.id         = rowElement.cells[0].firstChild.textContent
+        customer.firstname  = rowElement.cells[1].firstChild.textContent
+        customer.lastname   = rowElement.cells[2].firstChild.textContent
+        customer.gender     = rowElement.cells[3].firstChild.textContent
+        customer.age        = rowElement.cells[4].firstChild.textContent
+        customer.lastvisit  = rowElement.cells[5].firstChild.textContent 
+        customer.product    = rowElement.cells[6].firstChild.textContent       
+        customer.amountspent = parseFloat(rowElement.cells[7].firstChild.textContent,10)
+        // customer.amountspent = parseInt(rowElement.cells[7].firstChild.textContent,10)
+        return customer
+    }
+
+    function setCustomerInRow(rowElement, customer){
+        rowElement.cells[0].firstChild.textContent= customer.id  
+        rowElement.cells[1].firstChild.textContent= customer.firstname
+        rowElement.cells[2].firstChild.textContent= customer.lastname
+        rowElement.cells[3].firstChild.textContent= customer.gender
+        rowElement.cells[4].firstChild.textContent= customer.age
+        rowElement.cells[5].firstChild.textContent= customer.lastvisit
+        rowElement.cells[6].firstChild.textContent= customer.product
+        rowElement.cells[7].firstChild.textContent= customer.amountspent
+    }
+
+    function populateFormWithCustomer(customer){
+        var form = document.getElementById('createUpdateForm')
+        form.querySelector('input[name="id"]').disabled = true
+        form.querySelector('input[name="id"]').value  = customer.id
+        form.querySelector('input[name="firstname"]').value = customer.firstname
+        form.querySelector('input[name="lastname"]').value = customer.lastname
+        form.querySelector('select[name="gender"]').value = customer.gender
+        form.querySelector('select[name="age"]').value = customer.age
+        form.querySelector('input[name="lastvisit"]').value = customer.lastvisit
+        form.querySelector('input[name="product"]').value = customer.product
+        form.querySelector('input[name="amountspent"]').value = customer.amountspent
+        return customer
+    }
+
+    function getCustomerFromForm(){
+        var form = document.getElementById('createUpdateForm')
+        var customer = {}
+        customer.id         = form.querySelector('input[name="id"]').value
+        customer.firstname  = form.querySelector('input[name="firstname"]').value
+        customer.lastname   = form.querySelector('input[name="lastname"]').value
+        customer.gender     = form.querySelector('select[name="gender"]').value
+        customer.age        = form.querySelector('select[name="age"]').value
+        customer.lastvisit  = form.querySelector('input[name="lastvisit"]').value
+        customer.product    = form.querySelector('input[name="product"]').value
+        customer.amountspent = parseFloat(form.querySelector('input[name="amountspent"]').value,10)
+        // customer.amountspent = parseInt(form.querySelector('input[name="amountspent"]').value,10)
+        console.log(JSON.stringify(customer))
+        return customer
+    }
+
+    function getAllCustomerAjax(){
+        // document.getElementById("writeHere").innerText = 'Nothing to decalre... ah ha...';
+        $.ajax({
+            // "url": "http://dewaledr.pythonanywhere.com/customers",
+            "url": "http://127.0.0.1:5000/customers",
+            "method":"GET",
+            "data":"",
+            "dataType": "JSON",
+            "success":function(result){
+                //console.log(result);
+                for (customer of result){
+                    addCustomerToTable(customer);
+                }   
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+
+    function createCustomerAjax(customer){
+        //var customer = {"firstname":"Fiat","lastname":"Punto","gender":"M","age":"baby","lastvisit","20-10-2020","totalspent":7075}
+        console.log(JSON.stringify(customer));
+        $.ajax({
+            // "url": "http://dewaledr.pythonanywhere.com/customers",
+            "url": "http://127.0.0.1:5000/customers",
+            "method":"POST",
+            "data":JSON.stringify(customer),
+            "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success":function(result){
+                // console.log(result);
+                customer.id = result.id
+                addCustomerToTable(customer)
+                clearForm()
+                showViewAll()
+                document.getElementById("writeHere").innerText = 'Customer ' + result.id + " - (" + result.firstname + " " + result.lastname +') has been created...';
+                // document.getElementById("writeHere").innerText = 'Customer ' + result.customer.id + " - (" + result.customer.firstname + " " + result.customer.lastname +') has been created...';
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+
+    function updateCustomerAjax(customer){
+        //var customer = {"id":nextID,"firstname":"firstname"....}
+        console.log(JSON.stringify(customer));
+        $.ajax({
+            // "url": "http://dewaledr.pythonanywhere.com/customers/"+encodeURI(customer.id),
+            "url": "http://127.0.0.1:5000/customers/"+encodeURI(customer.id),
+            "method":"PUT",
+            "data":JSON.stringify(customer),
+            "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success":function(result){
+            //    console.log(result);
+               document.getElementById("writeHere").innerText = 'Customer ' + customer.id + ' detail has been updated successfully...' ;     
+            //    document.getElementById("writeHere").innerText = 'Customer ' + result.customer.id + ' detail has been updated successfully...' ;     
+            },
+            "error":function(xhr,status,error){
+                document.getElementById("writeHere").innerText = 'Customer ' + customer.id + ' NOT UPDATED!!!...' ; 
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+
+    function deleteCustomerAjax(id){
+        //var car = {"reg":"12 D 1234"}
+        console.log(JSON.stringify(id));
+        $.ajax({
+            // "url": "http://dewaledr.pythonanywhere.com/customers/"+id,
+            // "url": "http://dewaledr.pythonanywhere.com/customers/"+encodeURI(id),
+            "url": "http://127.0.0.1:5000/customers/"+encodeURI(id),
+            "method":"DELETE",
+            "data":"",
+            "dataType": "JSON",
+            // "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success":function(result){
+                // console.log(result);
+                document.getElementById("writeHere").innerText = 'Customer ' + id + ' has been Deleted...' ;
+                  
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+    getAllCustomerAjax(); 
+    </script>
+</html>
